@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MyTools.Pages.DiskToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyTools.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    NavigationCacheMode="Required">
+
+
+    <Grid Margin="20,10,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="100"/>
+           
+        </Grid.RowDefinitions>
+        <controls:WrapPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,0">
+            <RadioButton x:Name="MountVirtualDiskRadioButton" Content="挂载虚拟磁盘" GroupName="SingleChoice" Checked="DiskToolsRadioButton_Checked" ToolTipService.ToolTip="需开启Hyper-V" Margin="0,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="BitLockerLockRadioButton" Content="BitLocker重新锁定" GroupName="SingleChoice" Checked="DiskToolsRadioButton_Checked" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton Content="其他" GroupName="SingleChoice" Margin="5,0,0,0" MinWidth="0"/>
+        </controls:WrapPanel>
+
+        <StackPanel Grid.Row="1">
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" x:Name="RememberPathCheckBox" Content="记住路径：" Margin="0,0,0,0" VerticalAlignment="Center" Checked="RememberPathCheckBox_Checked" Unchecked="RememberPathCheckBox_Unchecked" IsEnabled="False"/>
+                <TextBox Grid.Column="1" x:Name="SelectedVirtualDiskPathTextBox" Margin="5,0,0,0"  TextChanged="SelectedVirtualDiskPathTextBox_TextChanged" IsEnabled="False" PlaceholderText="选择或拖入一个虚拟磁盘文件"/>
+                <Button Grid.Column="2" x:Name="SelectVirtualDiskButton" Content="选择虚拟磁盘" Margin="5,0,0,0" Click="SelectVirtualDiskButton_Click" Width="120" IsEnabled="False"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" >
+                <TextBlock Text="选择需要上锁的磁盘盘符：" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox x:Name="DriveSelectorComboBox" Width="80" IsEnabled="False"/>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="ConfirmButton" Grid.Row="2" Margin="0,10,0,20" HorizontalAlignment="Right" Content="运行" Width="90" Click="ConfirmButton_Click"/>
+
+    </Grid>
+
+</Page>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MyTools.Pages.HashToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyTools.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    NavigationCacheMode="Required">
+
+
+
+    <Grid Margin="10,10,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <controls:WrapPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,10,0,0">
+            <RadioButton x:Name="CalculateAllRadioButton" Content="计算MD5、SHA1、SHA256、SHA512" GroupName="SingleChoice" Checked="HashToolsRadioButton_Checked" Margin="0,0,0,0" MinWidth="0"/>
+        </controls:WrapPanel>
+
+        <StackPanel Grid.Row="1">
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"  x:Name="SelectedFiletoCalculateHashPath" Margin="0,0,0,0" TextChanged="SelectedFiletoCalculateHashPathTextBox_TextChanged" IsEnabled="False" PlaceholderText="选择或拖入一个文件"/>
+                <Button Grid.Column="1"  x:Name="SelectedFiletoCalculateHashButton" Content="选择文件" Margin="5,0,0,0" Click="SelectedFiletoCalculateHashButton_Click" Width="120" IsEnabled="False"/>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"  Content="比较："  Click="HashComparisonButton_Click" />
+                <ComboBox Grid.Column="1"  x:Name="SelectHash" Width="110" Margin="5,0,0,0" SelectionChanged="SelectHashComboBox_SelectionChanged">
+                    <ComboBoxItem Content="MD5" IsSelected="True"/>
+                    <ComboBoxItem Content="SHA1"/>
+                    <ComboBoxItem Content="SHA256"/>
+                    <ComboBoxItem Content="SHA512"/>
+                </ComboBox>
+                <TextBox Grid.Column="2"  x:Name="OriginalHashValueTextBox" Margin="5,0,0,0"  TextChanged="OriginalHashValueTextBox_TextChanged"/>
+            </Grid>
+            <TextBlock x:Name="HashComparisonResultTextBlock" Text="↑↑↑运行完成后选择并填入待比较的哈希值↑↑↑" VerticalAlignment="Center" Margin="52,5,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ProgressBar x:Name="progressBar" Grid.Row="0" Height="20" Minimum="0" Maximum="100" Value="0" Width="auto"/>
+            <StackPanel  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock x:Name="ProgressValueTextBlock" Margin="0,0,0,0"  Text="进度值：0.00%"/>
+                <TextBlock x:Name="RunTimeTextBlock" Margin="20,0,0,0" Text="运行时间：--:--:--"/>
+            </StackPanel>
+            <TextBox x:Name="OutputTextBox" Grid.Row="2" IsReadOnly="True"  Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"  AcceptsReturn="True"/>
+        </Grid>
+        <Button x:Name="ConfirmButton" Grid.Row="3" Margin="0,10,0,20" HorizontalAlignment="Right" Content="运行" Width="90" Click="ConfirmButton_Click"/>
+
+    </Grid>
+
+</Page>

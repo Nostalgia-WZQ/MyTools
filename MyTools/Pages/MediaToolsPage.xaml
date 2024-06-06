@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MyTools.Pages.MediaToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    NavigationCacheMode="Required">
+
+
+    <Grid Margin="20,10,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <controls:WrapPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,0">
+            <RadioButton x:Name="VideoTranscodingGPURadioButton" Content="视频转码压缩（GPU）" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" ToolTipService.ToolTip="高压缩中质量，速度快，必须是支持hevc硬编码的英伟达显卡（如RTX20,30,40）" Margin="5,0,0,0" MinWidth="0" />
+            <RadioButton x:Name="VideoTranscodingCPURadioButton" Content="视频转码压缩（CPU）" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked " VerticalAlignment="Center" ToolTipService.ToolTip="高压缩高质量，速度慢" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="VideoAddSubtitlesRadioButton" Content="添加软字幕" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="MediaCaptureRadioButton" Content="视频/音频截取" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="ExtractingAudioTracksRadioButton" Content="提取音轨" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="FormatConversionRadioButton" Content="格式转换到：" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+                <ComboBox x:Name="SelectFormatConversionComboBox"   VerticalAlignment="Center" SelectionChanged="SelectFormatConversionComboBox_SelectionChanged" IsEnabled="False">
+                    <ComboBoxItem Content=".mp4" IsSelected="True"/>
+                    <ComboBoxItem Content=".mkv"/>
+                </ComboBox>
+            </StackPanel>
+        </controls:WrapPanel>
+        <StackPanel Grid.Row="1">
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <!--<ColumnDefinition Width="auto"/>-->
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="SelectedMediaPathTextBox" Margin="0,0,0,0"  TextChanged="SelectedMediaPathTextBox_TextChanged" IsEnabled="False" PlaceholderText="选择或拖入媒体文件，多个视频路径以半角分号间隔。"/>
+                <!--<CheckBox Grid.Column="1" x:Name="VolumeCheckBox" Content="批量" Margin="5,0,0,0" VerticalAlignment="Center" Checked="VolumeCheckBox_Checked"  Unchecked="VolumeCheckBox_Unchecked"  IsEnabled="False" MinWidth="0"/>-->
+                <Button Grid.Column="1" x:Name="SelectMediaButton" Content="选择媒体文件" Margin="5,0,0,0" Click="SelectMediaButton_Click"  Width="120" IsEnabled="False"/>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"  x:Name="SelectedSubtitlesPathTextBox" Margin="0,0,0,0" IsEnabled="False" PlaceholderText="选择或拖入一个字幕文件"/>
+                <Button Grid.Column="1"  x:Name="SelectSubtitlesButton" Content="选择字幕文件" Margin="5,0,0,0" Click="SelectSubtitlesButton_Click" Width="120" IsEnabled="False"/>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"  Orientation="Horizontal" >
+                    <TextBlock  Text="开始时间：" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaBeginHourNumberBox" VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" IsEnabled="False"/>
+                    <TextBlock  Text=":" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaBeginMinuteNumberBox"  VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="59" IsEnabled="False"/>
+                    <TextBlock  Text=":" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaBeginSecondNumberBox"  VerticalAlignment="Center"  SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="59" IsEnabled="False"/>
+                    <TextBlock  Text="." VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaBeginMillisecondsNumberBox" VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="999" IsEnabled="False"/>
+                </StackPanel>
+                <CheckBox Grid.Column="2" x:Name="EnableFinishTimeCheckBox"  VerticalAlignment="Center" Checked="EnableFinishTimeCheckBox_Checked"  Unchecked="EnableFinishTimeCheckBox_Unchecked"  IsEnabled="False" MinWidth="0"/>
+                <StackPanel Grid.Column="3" Orientation="Horizontal"  >
+                    <TextBlock  Text="结束时间：" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaFinishHourNumberBox" VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" IsEnabled="False"/>
+                    <TextBlock  Text=":" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaFinishMinuteNumberBox" Text="--" VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="59" IsEnabled="False"/>
+                    <TextBlock  Text=":" VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaFinishSecondNumberBox" Text="--"  VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="59" IsEnabled="False"/>
+                    <TextBlock  Text="." VerticalAlignment="Center"/>
+                    <NumberBox  x:Name="MediaFinishMillisecondsNumberBox" VerticalAlignment="Center" SpinButtonPlacementMode="Compact" Value="0" SmallChange="1" Minimum="0" Maximum="999" IsEnabled="False"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="OutputMediaButton" Content="输出到：" Margin="0,0,0,0" Click="OutputMediaButton_Click" Width="120" IsEnabled="False"/>
+                <TextBox Grid.Column="1" x:Name="OutputMediaPathTextBox" Margin="5,0,0,0" IsEnabled="False" TextChanged="OutputMediaPathTextBox_TextChanged"/>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ProgressBar x:Name="progressBar" Grid.Row="0" Height="20" Minimum="0" Maximum="100" Value="0" Width="auto"/>
+            <StackPanel  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock x:Name="CurrentProcessingTextBlock" Margin="0,0,0,0"  Text="当前处理：--/--"/>
+                <TextBlock x:Name="ProgressValueTextBlock" Margin="20,0,0,0"  Text="进度值：0.00%"/>
+                <TextBlock x:Name="RunTimeTextBlock" Margin="20,0,0,0" Text="运行时间：--:--:--"/>
+            </StackPanel>
+            <TextBox x:Name="OutputTextBox" Grid.Row="2" IsReadOnly="True"  Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"  AcceptsReturn="True"/>
+        </Grid>
+        <Button x:Name="ConfirmButton" Grid.Row="3" Margin="0,10,0,20" HorizontalAlignment="Right" Content="运行" Width="90" Click="ConfirmButton_Click"/>
+
+    </Grid>
+
+</Page>
