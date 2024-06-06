@@ -68,7 +68,7 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
                                 <TextBlock x:Name="VersionTextBlock" VerticalAlignment="Center"/>
-                                <HyperlinkButton Content="GitHub发布页" NavigateUri="https://github.com/Nostalgia-WZQ"  VerticalAlignment="Center"/>
+                                <HyperlinkButton Content="GitHub发布页" NavigateUri="https://github.com/Nostalgia-WZQ/MyTools/releases"  VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="关于软件作者：" VerticalAlignment="Center"/>
