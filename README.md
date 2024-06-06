@@ -19,7 +19,7 @@
 ## 系统要求
 需Windows 10 Build 17763 及以上。
 ## 安装步骤
-1.进入Release页面，下载压缩包并解压。  
+1.进入[Release](https://github.com/Nostalgia-WZQ/MyTools/releases)页面，下载压缩包并解压。  
 2.打开系统设置，搜索开发者选项，打开“开发人员模式”。滚动到页面底部，展开“PowerShell”，开启“更改执行策略...”选项。  
 3.应用包解压后，右键单击文件夹中的install.ps1脚本，选择“使用 PowerShell运行”。  
 4.安装完成后可关闭第二步打开的开关，后续更新或重新安装可直接双击后缀为.msix的文件即可。
