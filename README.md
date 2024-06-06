@@ -1,6 +1,7 @@
 # 概述
+该应用主要通过调用ffmpeg、CMD、powershell等进程进行相关操作，所以其具备的功能通过命令行和批处理程序也可实现，但本人喜欢鼠标点点点，所以学着做了这款应用。非专业人士，应用优化、代码规范等后续慢慢来。
 ## 媒体工具
-需ffmpeg（含ffprobe），请到 https://ffmpeg.org 下载并配置到环境变量，具体方法自行搜索。
+需ffmpeg（含ffprobe），请到 https://ffmpeg.org 下载并配置到环境变量，具体方法自行搜索。  
 视频转码命令可到设置页更改。
 ![媒体工具](Images/Screenshots/媒体工具.png)
 ## 磁盘工具
@@ -14,10 +15,9 @@
 ![其他工具](Images/Screenshots/其他工具.png)
 ## 设置界面
 ![设置](Images/Screenshots/设置.png)
-该应用主要通过调用ffmpeg、CMD、powershell等进程进行相关操作，所以实现的功能通过命令行和批处理程序也可实现，但本人喜欢鼠标点点点，所以学着做了这款应用。非专业人士，应用优化、代码规范等后续慢慢来。
 # 安装
 ## 系统要求
-需Windows 10 Build 17763 及以上。
+需Windows 10 Build 17763 及以上，支持 ARM64/x86/x64。
 ## 安装步骤
 1.进入[Release](https://github.com/Nostalgia-WZQ/MyTools/releases)页面，下载压缩包并解压。  
 2.打开系统设置，搜索开发者选项，打开“开发人员模式”。滚动到页面底部，展开“PowerShell”，开启“更改执行策略...”选项。  
