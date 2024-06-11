@@ -26,6 +26,7 @@ using MyTools.Classes;
 using Windows.Storage.Provider;
 using Microsoft.UI.Xaml.Shapes;
 using Microsoft.Windows.AppNotifications;
+using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -44,8 +45,9 @@ namespace MyTools.Pages
         {
             this.InitializeComponent();
             FileDragDropService fileDragDropService = new FileDragDropService();
-            fileDragDropService.SetupDragDrop(SelectedMediaPathTextBox,true);
-            fileDragDropService.SetupDragDrop(SelectedSubtitlesPathTextBox, false);
+            fileDragDropService.SetupDragDrop(SelectedMediaPathTextBox, true);
+            fileDragDropService.SetupDragDrop(SelectedSubtitlesPathTextBox, true);
+            fileDragDropService.SetupDragDrop(SelectedAudioPathTextBox, true);
             InitializeTimer();
         }
         private void InitializeTimer()
@@ -112,17 +114,27 @@ namespace MyTools.Pages
             {
                 SelectSubtitlesButton.IsEnabled = true;
                 SelectedSubtitlesPathTextBox.IsEnabled = true;
-                if (SelectedMediaPathText.Count > 1)
-                {
-                    await ShowMessages.ShowDialog(this.XamlRoot, "警告！", $"此功能选项仅能选择一个文件！", false);
-                    SelectedMediaPathTextBox.Text = SelectedMediaPathText[0];
-                    return;
-                }
             }
             else
             {
                 SelectSubtitlesButton.IsEnabled = false;
                 SelectedSubtitlesPathTextBox.IsEnabled = false;
+            }
+            if ((sender as RadioButton)?.Name == "MergeAudioAndVideoRadioButton")
+            {
+                SelectAudioButton.IsEnabled = true;
+                SelectedAudioPathTextBox.IsEnabled = true;
+                SelectAudioButton.Visibility = Visibility.Visible;
+                SelectedAudioPathTextBox.Visibility = Visibility.Visible;
+                SelectSubtitlesButton.Visibility = Visibility.Collapsed;
+                SelectedSubtitlesPathTextBox.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SelectAudioButton.Visibility = Visibility.Collapsed;
+                SelectedAudioPathTextBox.Visibility = Visibility.Collapsed;
+                SelectSubtitlesButton.Visibility = Visibility.Visible;
+                SelectedSubtitlesPathTextBox.Visibility = Visibility.Visible;
             }
             if ((sender as RadioButton)?.Name == "FormatConversionRadioButton")
             {
@@ -133,6 +145,8 @@ namespace MyTools.Pages
                 SelectFormatConversionComboBox.IsEnabled = false;
             }
         }
+
+        //单选项禁用状态，进程运行时使用
         private void RadioButtonIsEnabled(bool IsEnabled)
         {
             VideoTranscodingGPURadioButton.IsEnabled = IsEnabled;
@@ -140,6 +154,7 @@ namespace MyTools.Pages
             VideoAddSubtitlesRadioButton.IsEnabled = IsEnabled;
             MediaCaptureRadioButton.IsEnabled = IsEnabled;
             ExtractingAudioTracksRadioButton.IsEnabled = IsEnabled;
+            MergeAudioAndVideoRadioButton.IsEnabled = IsEnabled;
             FormatConversionRadioButton.IsEnabled = IsEnabled;
 
         }
@@ -179,8 +194,11 @@ namespace MyTools.Pages
         }
 
         List<string> SelectedMediaPathText = new List<string>();
-        private async void SelectMediaButton_Click(object sender, RoutedEventArgs e)
+        List<string> SelectedAudioPathText = new List<string>();
+        List<string> SelectedSubtitlesPathText = new List<string>();
+        private async void SelectButton_Click(object sender, RoutedEventArgs e)
         {
+            Button button = (Button)sender;
             //SelectedMediaPathTextBox.Text = "";
             var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
             // See the sample code below for how to make the window accessible from the App class.
@@ -192,11 +210,26 @@ namespace MyTools.Pages
             // Set options for your file picker
             openPicker.ViewMode = PickerViewMode.Thumbnail;
             openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            openPicker.FileTypeFilter.Add(".mp4");
-            openPicker.FileTypeFilter.Add(".mkv");
-            openPicker.FileTypeFilter.Add(".avi");
-            openPicker.FileTypeFilter.Add(".rmvb");
-            openPicker.FileTypeFilter.Add(".mp3");
+            if (button.Name == "SelectMediaButton")
+            {
+                openPicker.FileTypeFilter.Add(".mp4");
+                openPicker.FileTypeFilter.Add(".mkv");
+                openPicker.FileTypeFilter.Add(".avi");
+                openPicker.FileTypeFilter.Add(".rmvb");
+                openPicker.FileTypeFilter.Add(".mp3");
+            }
+            else if (button.Name == "SelectAudioButton")
+            {
+                openPicker.FileTypeFilter.Add(".aac");
+                openPicker.FileTypeFilter.Add(".flac");
+                openPicker.FileTypeFilter.Add(".wav");
+                openPicker.FileTypeFilter.Add(".mp3");
+            }
+            else if (button.Name == "SelectSubtitlesButton")
+            {
+                openPicker.FileTypeFilter.Add(".ass");
+                openPicker.FileTypeFilter.Add(".srt");
+            }
             openPicker.FileTypeFilter.Add("*");
 
             // Open the picker for the user to pick a file           
@@ -205,20 +238,45 @@ namespace MyTools.Pages
             {
                 //SelectedMediaPathText.Clear();
 
-                StringBuilder output = new StringBuilder();
+                StringBuilder input = new StringBuilder();
                 foreach (StorageFile file in files)
                 {
-
-                    output.Append(file.Path + ";");
+                    input.Append(file.Path + ";");
                 }
-                SelectedMediaPathTextBox.Text += output.ToString();
+                if (button.Name == "SelectMediaButton")
+                {
+                    SelectedMediaPathTextBox.Text += input.ToString();
+                }
+                else if (button.Name == "SelectAudioButton")
+                {
+                    SelectedAudioPathTextBox.Text += input.ToString();
+                }
+                else if (button.Name == "SelectSubtitlesButton")
+                {
+                    SelectedSubtitlesPathTextBox.Text += input.ToString();
+                }
             }
 
         }
-        private async void SelectedMediaPathTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private async void SelectedPathTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SelectedMediaPathText.Clear();
-            string inputText = SelectedMediaPathTextBox.Text.Trim();
+            TextBox textBox = sender as TextBox;
+            string inputText = "";
+            if (textBox.Name == "SelectedMediaPathTextBox")
+            {
+                SelectedMediaPathText.Clear();
+                inputText = SelectedMediaPathTextBox.Text.Trim();
+            }
+            else if (textBox.Name == "SelectedAudioPathTextBox")
+            {
+                SelectedAudioPathText.Clear();
+                inputText = SelectedAudioPathTextBox.Text.Trim();
+            }
+            else if (textBox.Name == "SelectedSubtitlesPathTextBox")
+            {
+                SelectedSubtitlesPathText.Clear();
+                inputText = SelectedSubtitlesPathTextBox.Text.Trim();
+            }
             if (!string.IsNullOrEmpty(inputText))
             {
                 string[] items = inputText.Split(';');
@@ -227,13 +285,24 @@ namespace MyTools.Pages
                     string trimmedItem = item.Trim();
                     if (!string.IsNullOrEmpty(trimmedItem))
                     {
-                        SelectedMediaPathText.Add(trimmedItem);
+                        if (textBox.Name == "SelectedMediaPathTextBox")
+                        {
+                            SelectedMediaPathText.Add(trimmedItem);
+                        }
+                        else if (textBox.Name == "SelectedAudioPathTextBox")
+                        {
+                            SelectedAudioPathText.Add(trimmedItem);
+                        }
+                        else if (textBox.Name == "SelectedSubtitlesPathTextBox")
+                        {
+                            SelectedSubtitlesPathText.Add(trimmedItem);
+                        }
                     }
                 }
             }
             if (SelectedMediaPathText.Count > 1)
             {
-                if (VideoAddSubtitlesRadioButton.IsChecked == true || MediaCaptureRadioButton.IsChecked == true)
+                if (MediaCaptureRadioButton.IsChecked == true)
                 {
                     await ShowMessages.ShowDialog(this.XamlRoot, "警告！", $"此功能选项仅能选择一个文件！", false);
                     SelectedMediaPathTextBox.Text = SelectedMediaPathText[0];
@@ -242,13 +311,13 @@ namespace MyTools.Pages
                 else
                 {
                     OutputMediaButton.IsEnabled = false;
-                    OutputMediaPathTextBox.IsReadOnly = true;
+                    //OutputMediaPathTextBox.IsReadOnly = true;
                 }
             }
             else
             {
                 OutputMediaButton.IsEnabled = true;
-                OutputMediaPathTextBox.IsReadOnly = false;
+                //OutputMediaPathTextBox.IsReadOnly = false;
             }
             GetMediaInformation();//获取媒体信息
             if (EnableFinishTimeCheckBox.IsChecked == true)
@@ -320,6 +389,10 @@ namespace MyTools.Pages
                 {
                     path = $"{MediaFolderPath}\\{MediaName}.mp3";
                 }
+                else if (MergeAudioAndVideoRadioButton.IsChecked == true)
+                {
+                    path = $"{MediaFolderPath}\\{MediaName}_m{MediaExtension}";
+                }
                 else if (FormatConversionRadioButton.IsChecked == true)
                 {
                     var SelectFormatType = SelectFormatConversionComboBox.SelectedItem as ComboBoxItem;
@@ -339,29 +412,29 @@ namespace MyTools.Pages
             MediaName = System.IO.Path.GetFileNameWithoutExtension(tempFileNameWithExtension); // 使用 Path.GetFileNameWithoutExtension 方法提取文件名到 MediaName 变量
             MediaExtension = System.IO.Path.GetExtension(MediaFilePath);// 使用 Path.GetExtension 方法提取扩展名到 MediaExtension 变量
         }
-        private async void SelectSubtitlesButton_Click(object sender, RoutedEventArgs e)
-        {
-            //SelectedSubtitlesPathTextBox.Text = "";
-            var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
-            // See the sample code below for how to make the window accessible from the App class.
-            var window = App.m_window;
-            // Retrieve the window handle (HWND) of the current WinUI 3 window.
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
-            // Initialize the file picker with the window handle (HWND).
-            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
-            // Set options for your file picker
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
-            openPicker.FileTypeFilter.Add(".ass");
-            openPicker.FileTypeFilter.Add(".srt");
+        //private async void SelectSubtitlesButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //SelectedSubtitlesPathTextBox.Text = "";
+        //    var openPicker = new Windows.Storage.Pickers.FileOpenPicker();
+        //    // See the sample code below for how to make the window accessible from the App class.
+        //    var window = App.m_window;
+        //    // Retrieve the window handle (HWND) of the current WinUI 3 window.
+        //    var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+        //    // Initialize the file picker with the window handle (HWND).
+        //    WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+        //    // Set options for your file picker
+        //    openPicker.ViewMode = PickerViewMode.Thumbnail;
+        //    openPicker.SuggestedStartLocation = PickerLocationId.ComputerFolder;
+        //    openPicker.FileTypeFilter.Add(".ass");
+        //    openPicker.FileTypeFilter.Add(".srt");
 
-            // Open the picker for the user to pick a file
-            var file = await openPicker.PickSingleFileAsync();
-            if (file != null)
-            {
-                SelectedSubtitlesPathTextBox.Text = file.Path;
-            }
-        }
+        //    // Open the picker for the user to pick a file
+        //    var file = await openPicker.PickSingleFileAsync();
+        //    if (file != null)
+        //    {
+        //        SelectedSubtitlesPathTextBox.Text = file.Path;
+        //    }
+        //}
         private async void OutputMediaButton_Click(object sender, RoutedEventArgs e)
         {
             // Clear previous returned file name, if it exists, between iterations of this scenario
@@ -397,26 +470,90 @@ namespace MyTools.Pages
 
         private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            //检查输入文件和输出文件是否存在
+            string inputMedia = "";
+            string outputMedia = "";
+            try
+            {
 
+
+                for (int i = 0; i < SelectedMediaPathText.Count; i++)
+                {
+                    if (!File.Exists(SelectedMediaPathText[i]))
+                    {
+                        inputMedia += $"\"{SelectedMediaPathText[i]}\"\n";
+                    }
+                    if (File.Exists(OutputMediaPathText[i]))
+                    {
+                        outputMedia += $"\"{OutputMediaPathText[i]}\"\n";
+                    }
+                    if (VideoAddSubtitlesRadioButton.IsChecked == true)
+                    {
+                        if (!File.Exists(SelectedSubtitlesPathText[i]))
+                        {
+                            inputMedia += $"\"{SelectedSubtitlesPathText[i]}\"\n";
+                        }
+                    }
+                    if (MergeAudioAndVideoRadioButton.IsChecked == true)
+                    {
+                        if (!File.Exists(SelectedAudioPathText[i]))
+                        {
+                            inputMedia += $"\"{SelectedAudioPathText[i]}\"\n";
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if ((ex.Message.Contains("Index was out of range")) )
+                {
+                    await ShowMessages.ShowDialog(this.XamlRoot, "错误！", $"发生了一个错误！错误信息：{ex.Message}\n\n请确保各输入文件、输出文件数量对应正确！", false);
+                }
+                else
+                {
+                    await ShowMessages.ShowDialog(this.XamlRoot, "错误！", $"发生了一个错误！错误信息：{ex.Message}", false);
+                }
+                return;
+             
+            }
+            if (!string.IsNullOrEmpty(inputMedia))
+            {
+                await ShowMessages.ShowDialog(this.XamlRoot, "警告！", $"以下文件不存在：\n{inputMedia}\n请检查路径是否正确！", false);
+                return;
+            }
+            //输出文件已存在，询问覆盖
+            if (!string.IsNullOrEmpty(outputMedia))
+            {
+                ContentDialogResult result = await ShowMessages.ShowDialog(this.XamlRoot, "是否覆盖？", $"以下文件已存在：\n{outputMedia}\n是否覆盖？", true);
+                if (result == ContentDialogResult.Primary)
+                {
+                    RunProgram();
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+            //输出文件不存在，无需询问
+            else
+            {
+                RunProgram();
+            }
+
+        }
+        private async void RunProgram()
+        {
             string ffmpegCommand = "";
             for (int i = 0; i < SelectedMediaPathText.Count; i++)
             {
-                if (string.IsNullOrEmpty(SelectedMediaPathText[i]) || !File.Exists(SelectedMediaPathText[i]))
-                {
-                    string errorMessage = string.IsNullOrWhiteSpace(SelectedMediaPathText[i])
-                         ? "请选择有效的媒体文件路径！"
-                         : "指定的文件不存在，请检查路径是否正确！";
-                    //XamlRoot xamlRoot = this.XamlRoot;
-                    await ShowMessages.ShowDialog(this.XamlRoot, "警告！", $"{errorMessage}", false);
-
-                    return;
-                }
                 if (EnableFinishTimeCheckBox.IsChecked == false)
                 {
                     //获取视频时长
                     string ffprobeCommand = $" -i \"{SelectedMediaPathText[i]}\" -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                    int exitCode = await RunProcess("ffprobe", ffprobeCommand);
-                    if (exitCode != 0)
+                    int exitCode1 = await RunProcess("ffprobe", ffprobeCommand);
+                    if (exitCode1 != 0)
                     {
                         await ShowMessages.ShowDialog(this.XamlRoot, "错误！", "无法获取媒体时长！请确认选择文件为媒体文件", false);
                         return;
@@ -449,15 +586,7 @@ namespace MyTools.Pages
                 }
                 else if (VideoAddSubtitlesRadioButton.IsChecked == true)
                 {
-                    if (string.IsNullOrEmpty(SelectedSubtitlesPathTextBox.Text) || !File.Exists(SelectedSubtitlesPathTextBox.Text))
-                    {
-                        string errorMessage = string.IsNullOrWhiteSpace(SelectedSubtitlesPathTextBox.Text)
-                         ? "请选择有效的字幕文件路径！"
-                         : "指定的文件不存在，请检查路径是否正确！";
-                        await ShowMessages.ShowDialog(this.XamlRoot, "警告！", $"{errorMessage}", false);
-                        return;
-                    }
-                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedSubtitlesPathTextBox.Text}\" -map 0 -map 1 -c copy -disposition:s:0 default -y \"{OutputMediaPathText[i]}\"";
+                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedSubtitlesPathText[i]}\" -map 0 -map 1 -c copy -disposition:s:0 default -y \"{OutputMediaPathText[i]}\"";
 
                 }
                 else if (MediaCaptureRadioButton.IsChecked == true)
@@ -489,57 +618,30 @@ namespace MyTools.Pages
                     ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -vn -acodec libmp3lame -q:a 0 -y \"{OutputMediaPathText[i]}\"";
 
                 }
+                else if (MergeAudioAndVideoRadioButton.IsChecked == true)
+                {
+                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedAudioPathText[i]}\" -map 0:v:0 -map 1:a:0 -c copy -y \"{OutputMediaPathText[i]}\"";
+
+                }
                 else if (FormatConversionRadioButton.IsChecked == true)
                 {
                     ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -map 0 -c copy -y \"{OutputMediaPathText[i]}\"";
 
                 }
-                if (File.Exists(OutputMediaPathText[i]))
+                CurrentProcessingTextBlock.Text = $"当前处理：{i + 1}/{SelectedMediaPathText.Count}";
+                int exitCode = await RunProcess("ffmpeg", ffmpegCommand);
+                if (exitCode != 0)
                 {
-                    ContentDialogResult result = await ShowMessages.ShowDialog(this.XamlRoot, "是否覆盖？", "文件已存在，是否覆盖？", true);
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        CurrentProcessingTextBlock.Text = $"当前处理：{i + 1}/{SelectedMediaPathText.Count}";
-                        int exitCode = await RunProcess("ffmpeg", ffmpegCommand);
-                        if (exitCode != 0)
-                        {
-                            await ShowMessages.ShowDialog(this.XamlRoot, "失败！", $"进程执行失败，退出代码：{exitCode}", false);
-                        }
-                        else
-                        {
-                            UpdateProgressBar(100);
-                            ShowMessages.SendNotificationToast("进程执行成功！", $"\"{SelectedMediaPathText[i]}\"处理后的文件已保存到：\"{OutputMediaPathText[i]}\"。");
-                            //TaskbarItemInfo.ProgressState = TaskbarItemProgressState.Paused;
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    await ShowMessages.ShowDialog(this.XamlRoot, "失败！", $"进程执行失败，退出代码：{exitCode}", false);
                 }
                 else
                 {
-                    CurrentProcessingTextBlock.Text = $"当前处理：{i + 1}/{SelectedMediaPathText.Count}";
-                    int exitCode = await RunProcess("ffmpeg", ffmpegCommand);
-                    if (exitCode != 0)
-                    {
-                        await ShowMessages.ShowDialog(this.XamlRoot, "失败！", $"进程执行失败，退出代码：{exitCode}", false);
-                    }
-                    else
-                    {
-                        UpdateProgressBar(100);
-                        ShowMessages.SendNotificationToast("进程执行成功！", $"\"{SelectedMediaPathText[i]}\"处理后的文件已保存到：\"{OutputMediaPathText[i]}\"。");
-                    }
+                    UpdateProgressBar(100);
+                    ShowMessages.SendNotificationToast("进程执行成功！", $"\"{SelectedMediaPathText[i]}\"处理后的文件已保存到：\"{OutputMediaPathText[i]}\"。");
                 }
             }
-
-           
-
-
-
         }
 
-        
 
 
         //启动进程
@@ -591,7 +693,7 @@ namespace MyTools.Pages
                             //实时输出运行状态
                             OutputTextBox.Text += args.Data + Environment.NewLine;
                             TextBoxScrollToEnd(OutputTextBox);
-                            
+
                         }
 
                     });

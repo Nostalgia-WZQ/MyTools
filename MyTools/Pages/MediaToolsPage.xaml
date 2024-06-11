@@ -23,6 +23,7 @@
             <RadioButton x:Name="VideoAddSubtitlesRadioButton" Content="添加软字幕" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <RadioButton x:Name="MediaCaptureRadioButton" Content="视频/音频截取" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <RadioButton x:Name="ExtractingAudioTracksRadioButton" Content="提取音轨" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="MergeAudioAndVideoRadioButton" Content="合并音视频" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <StackPanel Orientation="Horizontal">
                 <RadioButton x:Name="FormatConversionRadioButton" Content="格式转换到：" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
                 <ComboBox x:Name="SelectFormatConversionComboBox"   VerticalAlignment="Center" SelectionChanged="SelectFormatConversionComboBox_SelectionChanged" IsEnabled="False">
@@ -38,17 +39,19 @@
                     <ColumnDefinition Width="auto"/>
                     <!--<ColumnDefinition Width="auto"/>-->
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="SelectedMediaPathTextBox" Margin="0,0,0,0"  TextChanged="SelectedMediaPathTextBox_TextChanged" IsEnabled="False" PlaceholderText="选择或拖入媒体文件，多个视频路径以半角分号间隔。"/>
+                <TextBox Grid.Column="0" x:Name="SelectedMediaPathTextBox" Margin="0,0,0,0"  TextChanged="SelectedPathTextBox_TextChanged" IsEnabled="False" PlaceholderText="选择或拖入媒体文件，多个文件路径以半角分号间隔。"/>
                 <!--<CheckBox Grid.Column="1" x:Name="VolumeCheckBox" Content="批量" Margin="5,0,0,0" VerticalAlignment="Center" Checked="VolumeCheckBox_Checked"  Unchecked="VolumeCheckBox_Unchecked"  IsEnabled="False" MinWidth="0"/>-->
-                <Button Grid.Column="1" x:Name="SelectMediaButton" Content="选择媒体文件" Margin="5,0,0,0" Click="SelectMediaButton_Click"  Width="120" IsEnabled="False"/>
+                <Button Grid.Column="1" x:Name="SelectMediaButton" Content="选择媒体文件" Margin="5,0,0,0" Click="SelectButton_Click"  Width="120" IsEnabled="False"/>
             </Grid>
             <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0"  x:Name="SelectedSubtitlesPathTextBox" Margin="0,0,0,0" IsEnabled="False" PlaceholderText="选择或拖入一个字幕文件"/>
-                <Button Grid.Column="1"  x:Name="SelectSubtitlesButton" Content="选择字幕文件" Margin="5,0,0,0" Click="SelectSubtitlesButton_Click" Width="120" IsEnabled="False"/>
+                <TextBox Grid.Column="0"  x:Name="SelectedSubtitlesPathTextBox" Margin="0,0,0,0" IsEnabled="False" TextChanged="SelectedPathTextBox_TextChanged" PlaceholderText="选择或拖入字幕文件，多个字幕路径以半角分号间隔，自行调整顺序以与所选视频轨对应。"/>
+                <Button Grid.Column="1"  x:Name="SelectSubtitlesButton" Content="选择字幕文件" Margin="5,0,0,0" Click="SelectButton_Click" Width="120" IsEnabled="False"/>
+                <TextBox Grid.Column="0"  x:Name="SelectedAudioPathTextBox" Margin="0,0,0,0" IsEnabled="False" TextChanged="SelectedPathTextBox_TextChanged" PlaceholderText="选择或拖入音频文件，多个音频路径以半角分号间隔，自行调整顺序以与所选视频轨对应。" Visibility="Collapsed"/>
+                <Button Grid.Column="1"  x:Name="SelectAudioButton" Content="选择音轨" Margin="5,0,0,0" Click="SelectButton_Click" Width="120" IsEnabled="False" Visibility="Collapsed"/>
             </Grid>
             <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
