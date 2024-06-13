@@ -1,3 +1,36 @@
+<div align="center">
+
+# MyTools
+[![GitHub Repo stars](https://img.shields.io/github/stars/Nostalgia-WZQ/MyTools?style=flat)](https://github.com/Nostalgia-WZQ/MyTools/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/forks)
+
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aopen+is%3Aissue)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aissue+is%3Aclosed)
+
+[![GitHub Release](https://img.shields.io/github/v/release/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/releases)
+![GitHub Release Date](https://img.shields.io/github/release-date/Nostalgia-WZQ/MyTools)
+![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/latest/total)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/total) 
+</div>
+
+# 目录
+- [MyTools](#MyTools)
+- [概述](#概述)
+	- [媒体工具](#媒体工具)
+	- [磁盘工具](#磁盘工具)
+	- [计算哈希值](#计算哈希值)
+	- [查看导出目录树](#查看导出目录树)
+	- [其他工具](#其他工具)
+	- [设置界面](#设置界面)
+- [安装](#安装)
+	- [系统要求](#系统要求)
+	- [安装步骤](#安装步骤)
+		- [下载安装包](#下载安装包)
+		- [方法一（使用脚本安装）](#方法一（使用脚本安装）)
+		- [方法二（手动安装）](#方法二（手动安装）)
+- [免责声明](#免责声明)
+- [Star数量统计](#Star数量统计)
+
 # 概述
 该应用主要通过调用ffmpeg、CMD、powershell等进程进行相关操作，所以其具备的功能通过命令行和批处理程序也可实现，但本人喜欢鼠标点点点，所以学着做了这款应用。非专业人士，应用优化、代码规范等后续慢慢来。
 ## 媒体工具
@@ -5,7 +38,7 @@
 视频转码命令可到设置页更改。
 ![媒体工具](Images/Screenshots/媒体工具.png)
 ## 磁盘工具
-需以管理员权限运行该应用，挂载虚拟磁盘功能需开启Hyper-V功能。
+此页功能需以管理员权限运行该应用，挂载虚拟磁盘功能需开启Hyper-V功能。
 ![磁盘工具](Images/Screenshots/磁盘工具.png)
 ## 计算哈希值
 ![计算哈希值](Images/Screenshots/计算哈希值.png)
@@ -32,3 +65,5 @@
 3.后续更新或重新安装直接双击后缀为`*.msix`的文件即可。
 # 免责声明
 该应用部分功能会对电脑内的文件进行操作，为了确保数据安全，请务必在操作前做好原始文件的备份。在操作过程中若发生文件被覆盖、删除或丢失等意外情况，本软件不承担相关责任。请谨慎操作，保障个人数据安全。
+# Star数量统计
+[![Stargazers over time](https://starchart.cc/Nostalgia-WZQ/MyTools.svg?variant=adaptive)](https://starchart.cc/Nostalgia-WZQ/MyTools)
