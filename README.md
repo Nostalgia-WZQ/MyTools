@@ -1,3 +1,6 @@
+<p align="center">
+<img src="Images/Logo/MyTools.png" width="100px"/>
+</p>
 <div align="center">
 
 # MyTools
@@ -8,9 +11,9 @@
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aissue+is%3Aclosed)
 
 [![GitHub Release](https://img.shields.io/github/v/release/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/releases)
-![GitHub Release Date](https://img.shields.io/github/release-date/Nostalgia-WZQ/MyTools)
-![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/latest/total)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/total) 
+[![GitHub Release Date](https://img.shields.io/github/release-date/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/releases/latest)
+[![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/latest/total)](https://github.com/Nostalgia-WZQ/MyTools/releases/latest)
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/Nostalgia-WZQ/MyTools/total)](https://github.com/Nostalgia-WZQ/MyTools/releases) 
 </div>
 
 # 目录
