@@ -7,7 +7,7 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/Nostalgia-WZQ/MyTools?style=flat)](https://github.com/Nostalgia-WZQ/MyTools/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/forks)
 
-[![GitHub License](https://img.shields.io/github/license/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools?tab=AGPL-3.0-1-ov-file#)
+[![GitHub License](https://img.shields.io/github/license/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/blob/master/LICENSE.txt)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aopen+is%3Aissue)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aissue+is%3Aclosed)
 
