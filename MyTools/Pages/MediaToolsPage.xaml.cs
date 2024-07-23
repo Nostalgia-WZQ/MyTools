@@ -65,7 +65,7 @@ namespace MyTools.Pages
             // 更新UI，显示当前计时
             elapsedTime += timer.Interval;
             string timeStr = string.Format("{0:D2}:{1:D2}:{2:D2}", elapsedTime.Hours, elapsedTime.Minutes, elapsedTime.Seconds);
-            RunTimeTextBlock.Text = $"运行时间: {timeStr}";
+            RunTimeTextBlock.Text = $"总运行时间: {timeStr}";
         }
 
         private async void MediaToolsRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -528,7 +528,17 @@ namespace MyTools.Pages
                 ContentDialogResult result = await ShowMessages.ShowDialog(this.XamlRoot, "是否覆盖？", $"以下文件已存在：\n{outputMedia}\n是否覆盖？", true);
                 if (result == ContentDialogResult.Primary)
                 {
-                    RunProgram();
+                    if (!isCounting)
+                    {
+                        // 开始计时
+                        isCounting = true;
+                        elapsedTime = TimeSpan.Zero;
+                        timer.Start();
+                    }
+                    await RunProgram();
+                    // 进程已退出，停止计时
+                    isCounting = false;
+                    timer.Stop();
                 }
                 else
                 {
@@ -539,11 +549,21 @@ namespace MyTools.Pages
             //输出文件不存在，无需询问
             else
             {
-                RunProgram();
+                if (!isCounting)
+                {
+                    // 开始计时
+                    isCounting = true;
+                    elapsedTime = TimeSpan.Zero;
+                    timer.Start();
+                }
+                await RunProgram();
+                // 进程已退出，停止计时
+                isCounting = false;
+                timer.Stop();
             }
 
         }
-        private async void RunProgram()
+        private async Task RunProgram()
         {
             string ffmpegCommand = "";
             for (int i = 0; i < SelectedMediaPathText.Count; i++)
@@ -652,13 +672,7 @@ namespace MyTools.Pages
             OutputTextBox.Text = "";
             progressBar.Value = 0;
             ProgressValueTextBlock.Text = "进度值：0.00%";
-            if (!isCounting && ProcessName == "ffmpeg")
-            {
-                // 开始计时
-                isCounting = true;
-                elapsedTime = TimeSpan.Zero;
-                timer.Start();
-            }
+            
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = ProcessName,
@@ -741,9 +755,7 @@ namespace MyTools.Pages
 
             ConfirmButton.IsEnabled = true;
             RadioButtonIsEnabled(true);
-            // 进程已退出，停止计时
-            isCounting = false;
-            timer.Stop();
+            
             return exitCode;
         }
 

@@ -101,7 +101,7 @@
             <StackPanel  Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock x:Name="CurrentProcessingTextBlock" Margin="0,0,0,0"  Text="当前处理：--/--"/>
                 <TextBlock x:Name="ProgressValueTextBlock" Margin="20,0,0,0"  Text="进度值：0.00%"/>
-                <TextBlock x:Name="RunTimeTextBlock" Margin="20,0,0,0" Text="运行时间：--:--:--"/>
+                <TextBlock x:Name="RunTimeTextBlock" Margin="20,0,0,0" Text="总运行时间：--:--:--"/>
             </StackPanel>
             <TextBox x:Name="OutputTextBox" Grid.Row="2" IsReadOnly="True"  Margin="0,5,0,0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"  AcceptsReturn="True"/>
         </Grid>
