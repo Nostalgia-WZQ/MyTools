@@ -7,6 +7,7 @@
 [![GitHub Repo stars](https://img.shields.io/github/stars/Nostalgia-WZQ/MyTools?style=flat)](https://github.com/Nostalgia-WZQ/MyTools/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/forks)
 
+[![GitHub License](https://img.shields.io/github/license/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools?tab=AGPL-3.0-1-ov-file#)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aopen+is%3Aissue)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-closed/Nostalgia-WZQ/MyTools)](https://github.com/Nostalgia-WZQ/MyTools/issues?q=is%3Aissue+is%3Aclosed)
 
@@ -35,7 +36,7 @@
 - [Star数量统计](#Star数量统计)
 
 # 概述
-该应用主要通过调用ffmpeg、CMD、powershell等进程进行相关操作，所以其具备的功能通过命令行和批处理程序也可实现，但本人喜欢鼠标点点点，所以学着做了这款应用。非专业人士，应用优化、代码规范等后续慢慢来。
+该应用主要通过调用FFmpeg、CMD、PowerShell等进程进行相关操作，所以其具备的功能通过命令行和批处理程序也可实现，但本人喜欢鼠标点点点，所以学着做了这款应用。非专业人士，应用优化、代码规范等后续慢慢来。
 ## 媒体工具
 需ffmpeg（含ffprobe），请到 https://ffmpeg.org 下载并配置到环境变量，具体方法自行搜索。  
 视频转码命令可到设置页更改。
