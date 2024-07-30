@@ -606,7 +606,7 @@ namespace MyTools.Pages
                 }
                 else if (VideoAddSubtitlesRadioButton.IsChecked == true)
                 {
-                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedSubtitlesPathText[i]}\" -map 0 -map 1 -c copy -disposition:s:0 default -y \"{OutputMediaPathText[i]}\"";
+                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedSubtitlesPathText[i]}\" {localSettings.Values["VideoAddSubtitlesCommand"].ToString()} -y \"{OutputMediaPathText[i]}\"";
 
                 }
                 else if (MediaCaptureRadioButton.IsChecked == true)
@@ -640,7 +640,7 @@ namespace MyTools.Pages
                 }
                 else if (MergeAudioAndVideoRadioButton.IsChecked == true)
                 {
-                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedAudioPathText[i]}\" -map 0:v:0 -map 1:a:0 -c copy -y \"{OutputMediaPathText[i]}\"";
+                    ffmpegCommand = $" -i \"{SelectedMediaPathText[i]}\" -i \"{SelectedAudioPathText[i]}\" {localSettings.Values["MergeAudioAndVideoCommand"].ToString()} -y \"{OutputMediaPathText[i]}\"";
 
                 }
                 else if (FormatConversionRadioButton.IsChecked == true)

@@ -35,40 +35,70 @@ namespace MyTools.Pages
         public SettingsPage()
         {
             this.InitializeComponent();
-            
-        }
-       
 
-        private void VideoTranscodingCommandDefaultButton_Click(object sender, RoutedEventArgs e)
+        }
+
+
+        private void MediaToolsCommandDefaultButton_Click(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
-            if (button.Name == "VideoTranscodingGPUCommandDefaultButton")
+            switch (button.Name)
             {
-                VideoTranscodingGPUCommandTextBox.Text = GlobalData.VideoTranscodingGPUCommandDefault;
+                case "VideoTranscodingGPUCommandDefaultButton":
+                    VideoTranscodingGPUCommandTextBox.Text = GlobalData.VideoTranscodingGPUCommandDefault;
+                    break;
+                case "VideoTranscodingCPUCommandDefaultButton":
+                    VideoTranscodingCPUCommandTextBox.Text = GlobalData.VideoTranscodingCPUCommandDefault;
+                    break;
+                case "VideoAddSubtitlesCommandDefaultButton":
+                    VideoAddSubtitlesCommandTextBox.Text = GlobalData.VideoAddSubtitlesCommandDefault;
+                    break;
+                case "MergeAudioAndVideoCommandDefaultButton":
+                    MergeAudioAndVideoCommandTextBox.Text = GlobalData.MergeAudioAndVideoCommandDefault;
+                    break;
+                default:
+                    break;
             }
-            else if (button.Name == "VideoTranscodingCPUCommandDefaultButton")
-            {
-                VideoTranscodingCPUCommandTextBox.Text = GlobalData.VideoTranscodingCPUCommandDefault;
-            }
+
         }
         ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-        private void VideoTranscodingCommandTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MediaToolsCommandTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            localSettings.Values["VideoTranscodingGPUCommand"] = VideoTranscodingGPUCommandTextBox.Text;
-            localSettings.Values["VideoTranscodingCPUCommand"] = VideoTranscodingCPUCommandTextBox.Text;
+            var textBox = (TextBox)sender;
+            switch (textBox.Name)
+            {
+                case "VideoTranscodingGPUCommandTextBox":
+                    localSettings.Values["VideoTranscodingGPUCommand"] = VideoTranscodingGPUCommandTextBox.Text;
+                    break;
+                case "VideoTranscodingCPUCommandTextBox":
+                    localSettings.Values["VideoTranscodingCPUCommand"] = VideoTranscodingCPUCommandTextBox.Text;
+                    break;
+                case "VideoAddSubtitlesCommandTextBox":
+                    localSettings.Values["VideoAddSubtitlesCommand"] = VideoAddSubtitlesCommandTextBox.Text;
+                    break;
+                case "MergeAudioAndVideoCommandTextBox":
+                    localSettings.Values["MergeAudioAndVideoCommand"] = MergeAudioAndVideoCommandTextBox.Text;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SettingsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (localSettings.Values.ContainsKey("VideoTranscodingGPUCommand") && localSettings.Values.ContainsKey("VideoTranscodingCPUCommand") && localSettings.Values.ContainsKey("ThemeSelection"))
+            if (localSettings.Values.ContainsKey("VideoTranscodingGPUCommand") && localSettings.Values.ContainsKey("VideoTranscodingCPUCommand")
+               && localSettings.Values.ContainsKey("VideoAddSubtitlesCommand") && localSettings.Values.ContainsKey("MergeAudioAndVideoCommand") 
+               && localSettings.Values.ContainsKey("ThemeSelection"))
             {
                 VideoTranscodingGPUCommandTextBox.Text = localSettings.Values["VideoTranscodingGPUCommand"].ToString();
                 VideoTranscodingCPUCommandTextBox.Text = localSettings.Values["VideoTranscodingCPUCommand"].ToString();
-                if(localSettings.Values["ThemeSelection"].ToString()== "Light")
+                VideoAddSubtitlesCommandTextBox.Text = localSettings.Values["VideoAddSubtitlesCommand"].ToString();
+                MergeAudioAndVideoCommandTextBox.Text = localSettings.Values["MergeAudioAndVideoCommand"].ToString();
+                if (localSettings.Values["ThemeSelection"].ToString() == "Light")
                 {
                     LightThemeRadioButton.IsChecked = true;
                 }
-                else if(localSettings.Values["ThemeSelection"].ToString() == "Dark")
+                else if (localSettings.Values["ThemeSelection"].ToString() == "Dark")
                 {
                     DarkThemeRadioButton.IsChecked = true;
                 }
@@ -128,7 +158,7 @@ namespace MyTools.Pages
                 var folder = ApplicationData.Current.LocalFolder;
                 await Launcher.LaunchFolderAsync(folder);
             }
-           
+
         }
     }
 }

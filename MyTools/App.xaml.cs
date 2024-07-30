@@ -78,6 +78,14 @@ namespace MyTools
             {
                 localSettings.Values["VideoTranscodingCPUCommand"] = GlobalData.VideoTranscodingCPUCommandDefault;
             }
+            if (!localSettings.Values.ContainsKey("VideoAddSubtitlesCommand"))
+            {
+                localSettings.Values["VideoAddSubtitlesCommand"] = GlobalData.VideoAddSubtitlesCommandDefault;
+            }
+            if (!localSettings.Values.ContainsKey("MergeAudioAndVideoCommand"))
+            {
+                localSettings.Values["MergeAudioAndVideoCommand"] = GlobalData.MergeAudioAndVideoCommandDefault;
+            }
             if (!localSettings.Values.ContainsKey("ThemeSelection"))
             {
                 localSettings.Values["ThemeSelection"] = "Default";

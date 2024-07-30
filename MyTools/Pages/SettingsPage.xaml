@@ -24,9 +24,9 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="视频转码压缩GPU命令：ffmpeg -i input.mp4" VerticalAlignment="Center"/>
-                                <TextBox Grid.Column="1" x:Name="VideoTranscodingGPUCommandTextBox" TextChanged="VideoTranscodingCommandTextBox_TextChanged"/>
+                                <TextBox Grid.Column="1" x:Name="VideoTranscodingGPUCommandTextBox" TextChanged="MediaToolsCommandTextBox_TextChanged"/>
                                 <TextBlock Grid.Column="2"  Text="-y output.mp4" VerticalAlignment="Center"/>
-                                <Button Grid.Column="3" x:Name="VideoTranscodingGPUCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="VideoTranscodingCommandDefaultButton_Click"/>
+                                <Button Grid.Column="3" x:Name="VideoTranscodingGPUCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="MediaToolsCommandDefaultButton_Click"/>
                             </Grid>
                             <Grid Margin="0,5,0,0" >
                                 <Grid.ColumnDefinitions>
@@ -36,9 +36,33 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Text="视频转码压缩CPU命令：ffmpeg -i input.mp4" VerticalAlignment="Center"/>
-                                <TextBox Grid.Column="1" x:Name="VideoTranscodingCPUCommandTextBox" TextChanged="VideoTranscodingCommandTextBox_TextChanged"/>
+                                <TextBox Grid.Column="1" x:Name="VideoTranscodingCPUCommandTextBox" TextChanged="MediaToolsCommandTextBox_TextChanged"/>
                                 <TextBlock Grid.Column="2"  Text="-y output.mp4" VerticalAlignment="Center"/>
-                                <Button Grid.Column="3" x:Name="VideoTranscodingCPUCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="VideoTranscodingCommandDefaultButton_Click"/>
+                                <Button Grid.Column="3" x:Name="VideoTranscodingCPUCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="MediaToolsCommandDefaultButton_Click"/>
+                            </Grid>
+                            <Grid Margin="0,5,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="添加软字幕命令：ffmpeg -i input.mp4 -i input.srt" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1" x:Name="VideoAddSubtitlesCommandTextBox" TextChanged="MediaToolsCommandTextBox_TextChanged"/>
+                                <TextBlock Grid.Column="2"  Text="-y output.mkv" VerticalAlignment="Center"/>
+                                <Button Grid.Column="3" x:Name="VideoAddSubtitlesCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="MediaToolsCommandDefaultButton_Click"/>
+                            </Grid>
+                            <Grid Margin="0,5,0,0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="合并音视频命令：ffmpeg -i input.mp4 -i input.mp3" VerticalAlignment="Center"/>
+                                <TextBox Grid.Column="1" x:Name="MergeAudioAndVideoCommandTextBox" TextChanged="MediaToolsCommandTextBox_TextChanged"/>
+                                <TextBlock Grid.Column="2"  Text="-y output.mp4" VerticalAlignment="Center"/>
+                                <Button Grid.Column="3" x:Name="MergeAudioAndVideoCommandDefaultButton" Content="默认值" Margin="10,0,0,0" Click="MediaToolsCommandDefaultButton_Click"/>
                             </Grid>
                         </StackPanel>
                     </Expander.Content>
