@@ -57,7 +57,7 @@
 ![设置](Images/Screenshots/设置.png)
 # 安装
 ## 系统要求
-需Windows 10 Build 17763 及以上，支持 ARM64/x86/x64。
+需Windows 10 Build 17763 及以上，支持 ARM64/x86/x64（0.1.0版本后不再支持ARM64/x86）。
 ## 安装步骤
 ### 下载安装包
 进入[Release](https://github.com/Nostalgia-WZQ/MyTools/releases)页面，下载压缩包并解压。  
