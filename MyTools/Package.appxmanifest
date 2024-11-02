@@ -10,7 +10,7 @@
   <Identity
     Name="WZQ.MyTools"
     Publisher="CN=WZQ"
-    Version="0.0.10.0" />
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ecdfed8e-06dd-4b6d-917d-69d98981c134" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
