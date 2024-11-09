@@ -506,7 +506,7 @@ namespace MyTools.Pages
             }
             catch (Exception ex)
             {
-                if ((ex.Message.Contains("Index was out of range")) )
+                if ((ex.Message.Contains("Index was out of range")))
                 {
                     await ShowMessages.ShowDialog(this.XamlRoot, "错误！", $"发生了一个错误！错误信息：{ex.Message}\n\n请确保各输入文件、输出文件数量对应正确！", false);
                 }
@@ -515,7 +515,7 @@ namespace MyTools.Pages
                     await ShowMessages.ShowDialog(this.XamlRoot, "错误！", $"发生了一个错误！错误信息：{ex.Message}", false);
                 }
                 return;
-             
+
             }
             if (!string.IsNullOrEmpty(inputMedia))
             {
@@ -672,7 +672,7 @@ namespace MyTools.Pages
             OutputTextBox.Text = "";
             progressBar.Value = 0;
             ProgressValueTextBlock.Text = "进度值：0.00%";
-            
+
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = ProcessName,
@@ -704,17 +704,14 @@ namespace MyTools.Pages
                         }
                         else
                         {
+                            UpdateProgressFromffmpegOutput(args.Data);//更新输出框和进度条
                             //实时输出运行状态
-                            OutputTextBox.Text += args.Data + Environment.NewLine;
-                            TextBoxScrollToEnd(OutputTextBox);
+                            //OutputTextBox.Text += args.Data + Environment.NewLine;
+                            //TextBoxScrollToEnd(OutputTextBox);
 
                         }
 
-                    });
-                    if (ProcessName == "ffmpeg")
-                    {
-                        UpdateProgressFromffmpegOutput(args.Data);//更新进度条
-                    }
+                    });                    
                 }
             };
             process.OutputDataReceived += outputHandler;
@@ -755,7 +752,7 @@ namespace MyTools.Pages
 
             ConfirmButton.IsEnabled = true;
             RadioButtonIsEnabled(true);
-            
+
             return exitCode;
         }
 
@@ -771,12 +768,20 @@ namespace MyTools.Pages
             MediaFinishMillisecondsNumberBox.Text = Milliseconds.ToString("000");
         }
 
+        string staticInfo = "";//ffmpeg获取的静态数据
         private void UpdateProgressFromffmpegOutput(string outputLine)
         {
             const string timePattern = @"time=(\d{2}:\d{2}:\d{2}\.\d{2})";//ffmpeg输出毫秒为两位
             Match match = Regex.Match(outputLine, timePattern);
-            if (!match.Success) return;
-
+            if (!match.Success)
+            {
+                staticInfo = OutputTextBox.Text += outputLine + Environment.NewLine;
+                TextBoxScrollToEnd(OutputTextBox);
+                return;
+            }
+            // 更新动态信息部分（覆盖）
+            OutputTextBox.Text = staticInfo + outputLine + Environment.NewLine;
+            //更新进度
             string rawTimeStr = match.Groups[1].Value;
             double currentTimeSeconds = ParseTimeToSeconds(rawTimeStr);
 
