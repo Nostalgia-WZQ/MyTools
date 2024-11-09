@@ -23,7 +23,7 @@
             <RadioButton x:Name="VideoAddSubtitlesRadioButton" Content="添加软字幕" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <RadioButton x:Name="MediaCaptureRadioButton" Content="视频/音频截取" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <RadioButton x:Name="ExtractingAudioTracksRadioButton" Content="提取音轨" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
-            <RadioButton x:Name="MergeAudioAndVideoRadioButton" Content="合并音视频" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
+            <RadioButton x:Name="MergeAudioAndVideoRadioButton" Content="合并音视频轨" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
             <StackPanel Orientation="Horizontal">
                 <RadioButton x:Name="FormatConversionRadioButton" Content="格式转换到：" GroupName="SingleChoice" Checked="MediaToolsRadioButton_Checked" VerticalAlignment="Center" Margin="5,0,0,0" MinWidth="0"/>
                 <ComboBox x:Name="SelectFormatConversionComboBox"   VerticalAlignment="Center" SelectionChanged="SelectFormatConversionComboBox_SelectionChanged" IsEnabled="False">
