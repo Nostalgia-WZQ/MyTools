@@ -97,7 +97,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="关于软件作者：" VerticalAlignment="Center"/>
                                 <HyperlinkButton Content="GitHub主页" NavigateUri="https://github.com/Nostalgia-WZQ" VerticalAlignment="Center"/>
-                                <HyperlinkButton Content="BiliBili主页" NavigateUri="https://space.bilibili.com/239629319?spm_id_from=333.337.0.0" VerticalAlignment="Center"/>
+                                <HyperlinkButton Content="BiliBili主页" NavigateUri="https://space.bilibili.com/239629319" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="关于贡献者：" VerticalAlignment="Center"/>
