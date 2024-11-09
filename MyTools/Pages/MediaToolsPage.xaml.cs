@@ -176,7 +176,7 @@ namespace MyTools.Pages
             MediaFinishSecondNumberBox.IsEnabled = true;
             MediaFinishMillisecondsNumberBox.IsEnabled = true;
             //获取视频时长
-            string ffprobeCommand = $" -i \"{SelectedMediaPathTextBox.Text}\" -show_entries format=duration -v quiet -of csv=\"p=0\"";
+            string ffprobeCommand = $" -i \"{SelectedMediaPathText[0]}\" -show_entries format=duration -v quiet -of csv=\"p=0\"";
             int exitCode = await RunProcess("ffprobe", ffprobeCommand);
             if (exitCode != 0)
             {
