@@ -146,9 +146,10 @@ namespace MyTools.Pages
             }
         }
 
-        //单选项禁用状态，进程运行时使用
-        private void RadioButtonIsEnabled(bool IsEnabled)
+        //单选项和文本框禁用状态，进程运行时使用
+        private void RadioButtonAndTextBoxStatus(bool IsEnabled)
         {
+            //按钮禁用状态
             VideoTranscodingGPURadioButton.IsEnabled = IsEnabled;
             VideoTranscodingCPURadioButton.IsEnabled = IsEnabled;
             VideoAddSubtitlesRadioButton.IsEnabled = IsEnabled;
@@ -156,7 +157,11 @@ namespace MyTools.Pages
             ExtractingAudioTracksRadioButton.IsEnabled = IsEnabled;
             MergeAudioAndVideoRadioButton.IsEnabled = IsEnabled;
             FormatConversionRadioButton.IsEnabled = IsEnabled;
-
+            OutputMediaButton.IsEnabled = IsEnabled;
+            //文本框只读状态
+            SelectedMediaPathTextBox.IsReadOnly = !IsEnabled;
+            SelectedSubtitlesPathTextBox.IsReadOnly = !IsEnabled;
+            OutputMediaPathTextBox.IsReadOnly = !IsEnabled;
         }
 
 
@@ -668,7 +673,7 @@ namespace MyTools.Pages
         private async Task<int> RunProcess(string ProcessName, string ProcessCommand)
         {
             ConfirmButton.IsEnabled = false;
-            RadioButtonIsEnabled(false);
+            RadioButtonAndTextBoxStatus(false);
             OutputTextBox.Text = "";
             progressBar.Value = 0;
             ProgressValueTextBlock.Text = "进度值：0.00%";
@@ -732,7 +737,7 @@ namespace MyTools.Pages
                     await ShowMessages.ShowDialog(this.XamlRoot, "错误！", $"发生了一个错误！错误信息：{ex.Message}", false);
                 }
                 ConfirmButton.IsEnabled = true;
-                RadioButtonIsEnabled(true);
+                RadioButtonAndTextBoxStatus(true);
                 // 进程已退出，停止计时
                 isCounting = false;
                 timer.Stop();
@@ -751,7 +756,7 @@ namespace MyTools.Pages
 
 
             ConfirmButton.IsEnabled = true;
-            RadioButtonIsEnabled(true);
+            RadioButtonAndTextBoxStatus(true);
 
             return exitCode;
         }
