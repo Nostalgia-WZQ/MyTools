@@ -38,7 +38,7 @@ namespace MyTools.Pages
             FileDragDropService fileDragDropService = new FileDragDropService();
             fileDragDropService.SetupDragDrop(SelectedFiletoCalculateHashPath, false);
             InitializeTimer();
-            
+
         }
         private void InitializeTimer()
         {
@@ -184,11 +184,9 @@ namespace MyTools.Pages
 
 
         private void HashComparison()
-        {
-            var selectedHashType = SelectHash.SelectedItem as ComboBoxItem;
-            string hashValue = selectedHashType.Content.ToString();
-
-            if (HashValues.TryGetValue(hashValue, out var selectedHashValue))
+        {           
+            var hashType = (SelectHashComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            if (HashValues.TryGetValue(hashType, out var selectedHashValue))
             {
 
                 if (OriginalHashValueTextBox.Text.ToUpper() == selectedHashValue)
@@ -202,7 +200,7 @@ namespace MyTools.Pages
                     HashComparisonResultTextBlock.Foreground = new SolidColorBrush(Colors.Red);
                 }
             }
-
+            
         }
         private void OriginalHashValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

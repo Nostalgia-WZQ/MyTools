@@ -39,7 +39,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"  Content="比较："  Click="HashComparisonButton_Click" />
-                <ComboBox Grid.Column="1"  x:Name="SelectHash" Width="110" Margin="5,0,0,0" SelectionChanged="SelectHashComboBox_SelectionChanged">
+                <ComboBox Grid.Column="1"  x:Name="SelectHashComboBox" Width="110" Margin="5,0,0,0" SelectionChanged="SelectHashComboBox_SelectionChanged">
                     <ComboBoxItem Content="MD5" IsSelected="True"/>
                     <ComboBoxItem Content="SHA1"/>
                     <ComboBoxItem Content="SHA256"/>
