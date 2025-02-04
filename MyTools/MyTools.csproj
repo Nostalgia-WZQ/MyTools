@@ -11,6 +11,7 @@
 		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<PublishAot>true</PublishAot>
+		<Optimize>false</Optimize>
 		<UseWinUI>true</UseWinUI>
 		<EnableMsixTooling>true</EnableMsixTooling>
 		<DefaultLanguage>zh-cn</DefaultLanguage>
