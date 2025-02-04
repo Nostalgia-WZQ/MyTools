@@ -10,6 +10,7 @@ using MyTools.Classes;
 using MyTools.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -37,6 +38,23 @@ namespace MyTools
         {
             this.InitializeComponent();
             InitializeAppSettings();
+            this.UnhandledException += (sender, e) =>
+            {
+                // 获取可写入的日志路径
+                var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+                var logPath = System.IO.Path.Combine(localFolder, "crash.log");
+
+                // 确保目录存在
+                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(logPath));
+
+                // 写入日志
+                File.WriteAllText(logPath, e.Exception.ToString());
+
+                // 输出路径以便调试
+                Debug.WriteLine($"崩溃日志已保存到：{logPath}");
+
+                e.Handled = true;
+            };
         }
 
         /// <summary>
