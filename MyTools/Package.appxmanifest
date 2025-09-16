@@ -8,15 +8,15 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="WZQ.MyTools"
-    Publisher="CN=WZQ"
+    Name="WangZaiqun.MyTools1"
+    Publisher="CN=B08B672B-E56B-416B-90FA-8C06E7A68E21"
     Version="0.1.5.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ecdfed8e-06dd-4b6d-917d-69d98981c134" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="549da591-c144-4c3b-b8f2-18782b2fbe41" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MyTools</DisplayName>
-    <PublisherDisplayName>WZQ</PublisherDisplayName>
+    <DisplayName>MyTools1</DisplayName>
+    <PublisherDisplayName>Nostalgia-WZQ</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -34,7 +34,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="MyTools"
+        DisplayName="MyTools1"
         Description="MyTools"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"

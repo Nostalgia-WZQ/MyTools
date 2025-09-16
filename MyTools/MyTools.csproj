@@ -28,7 +28,8 @@
 		<AppxBundlePlatforms>x64</AppxBundlePlatforms>
 		<ApplicationIcon>MyTools.ico</ApplicationIcon>
 		<AppxPackageDir>bin\releases\AppPackages\</AppxPackageDir>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>		
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>		
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="MediaTools.xaml" />
