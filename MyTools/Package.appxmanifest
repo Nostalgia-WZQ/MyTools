@@ -10,9 +10,9 @@
   <Identity
     Name="WangZaiqun.MyTools1"
     Publisher="CN=B08B672B-E56B-416B-90FA-8C06E7A68E21"
-    Version="0.1.5.0" />
+    Version="0.1.6.0" />
 
-  <mp:PhoneIdentity PhoneProductId="549da591-c144-4c3b-b8f2-18782b2fbe41" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="bf612190-d8e7-49a6-9efc-5602273d0746" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>MyTools1</DisplayName>
