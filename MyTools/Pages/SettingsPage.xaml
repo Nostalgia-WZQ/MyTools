@@ -92,6 +92,7 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
                                 <TextBlock x:Name="VersionTextBlock" VerticalAlignment="Center"/>
+                                <HyperlinkButton Content="Microsoft Store页面" NavigateUri="https://apps.microsoft.com/detail/9P8KKSLJ76G3"  VerticalAlignment="Center"/>
                                 <HyperlinkButton Content="GitHub发布页" NavigateUri="https://github.com/Nostalgia-WZQ/MyTools/releases"  VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
