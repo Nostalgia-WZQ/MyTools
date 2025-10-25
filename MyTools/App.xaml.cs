@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using MyTools.Class;
 using MyTools.Classes;
 using MyTools.Pages;
 using System;
@@ -19,6 +20,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -38,7 +40,7 @@ namespace MyTools
         {
             this.InitializeComponent();
             InitializeAppSettings();
-            this.UnhandledException += (sender, e) =>
+            this.UnhandledException += async (sender, e) =>
             {
                 // 获取可写入的日志路径
                 var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
@@ -50,9 +52,13 @@ namespace MyTools
                 // 写入日志
                 File.WriteAllText(logPath, e.Exception.ToString());
 
-                // 输出路径以便调试
-                Debug.WriteLine($"崩溃日志已保存到：{logPath}");
-
+                // 弹窗提醒
+                ContentDialogResult result = await ShowMessages.ShowDialog(((FrameworkElement)m_window.Content).XamlRoot, "啊哦～崩溃了！😫😫😫", $"崩溃日志已保存到：\n{logPath}\n是否查看？", true);
+                
+                if (result == ContentDialogResult.Primary)
+                {
+                    await Launcher.LaunchFolderPathAsync(localFolder);
+                }
                 e.Handled = true;
             };
         }

@@ -1,11 +1,12 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Windows.AppNotifications;
 
 namespace MyTools.Class
 {
@@ -34,17 +35,11 @@ namespace MyTools.Class
 
         public static bool SendNotificationToast(string title, string message)
         {
-            var xmlPayload = new string($@"
-        <toast>    
-            <visual>    
-                <binding template=""ToastGeneric"">    
-                    <text>{title}</text>
-                    <text>{message}</text>    
-                </binding>
-            </visual>  
-        </toast>");
+            var toast = new AppNotificationBuilder()
+                .AddText(title)
+                .AddText(message)
+                .BuildNotification();
 
-            var toast = new AppNotification(xmlPayload);
             AppNotificationManager.Default.Show(toast);
             return toast.Id != 0;
         }
